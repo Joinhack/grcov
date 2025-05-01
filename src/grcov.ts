@@ -71,6 +71,10 @@ export class Grcov {
             args.push('--llvm');
         }
 
+        args.push('--binary-path');
+        args.push('./target/debug/');
+
+
         // options
         args.push('--commit-sha');
         args.push(config.system.commitSha);
