@@ -39,14 +39,12 @@ async function getCrateNames(root: string): Promise<string[]> {
 async function getCoverageFiles(root: string): Promise<string[]> {
     const crates = await getCrateNames(root);
     core.info(`|found project crates: ${crates}`);
-	core.info("-------------1--------------------")
 
     let patterns: string[] = [];
     for (const crate of crates) {
         const replacement = crate.replace(/-/g, '_');
         patterns.push(`**/*.profraw`);
     }
-	core.info("-------------2--------------------")
 	core.info(patterns)
 
 	core.info(glob.sync(patterns, {
