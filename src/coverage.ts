@@ -41,10 +41,7 @@ async function getCoverageFiles(root: string): Promise<string[]> {
     core.info(`Found project crates: ${crates}`);
 
     let patterns: string[] = [];
-    for (const crate of crates) {
-        const replacement = crate.replace(/-/g, '_');
-        patterns.push(`**/${replacement}*.profraw`);
-    }
+    patterns.push(`**/*.profraw`);
     core.info(`Searching for coverage files with patterns: ${patterns}`);
     return glob.sync(patterns, {
         cwd: path.join(root),
