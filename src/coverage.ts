@@ -38,23 +38,16 @@ async function getCrateNames(root: string): Promise<string[]> {
 
 async function getCoverageFiles(root: string): Promise<string[]> {
     const crates = await getCrateNames(root);
-    core.info(`|found project crates: ${crates}`);
+    core.info(`Found project crates: ${crates}`);
 
     let patterns: string[] = [];
     for (const crate of crates) {
         const replacement = crate.replace(/-/g, '_');
-        patterns.push(`**/*.profraw`);
+        patterns.push(`**/${replacement}*.profraw`);
     }
-	core.info(patterns)
-
-	core.info(glob.sync(patterns, {
-        cwd: path.join(root, "target"),
-        absolute: true,
-        onlyFiles: true,
-    })
-
+    core.info(`Searching for coverage files with patterns: ${patterns}`);
     return glob.sync(patterns, {
-        cwd: path.join(root, "target"),
+        cwd: path.join(root),
         absolute: true,
         onlyFiles: true,
     });
